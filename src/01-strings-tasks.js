@@ -201,7 +201,7 @@ function extractEmails(str) {
 function getRectangleString(/* width, height */) {
   throw new Error('Not implemented');
 
-/*   const a = '┌';
+  /*   const a = '┌';
   const b = '─';
   const c = '┐';
   const d = '│';
@@ -250,8 +250,29 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str.charCodeAt(i) > 64 && str.charCodeAt(i) < 91) {
+      if (str.charCodeAt(i) + 13 > 90) {
+        result += String.fromCharCode(str.charCodeAt(i) - 13);
+      }
+      if (str.charCodeAt(i) + 13 < 91) {
+        result += String.fromCharCode(str.charCodeAt(i) + 13);
+      }
+    }
+
+    if (str.charCodeAt(i) + 13 < 123 && str.charCodeAt(i) > 96) {
+      result += String.fromCharCode(str.charCodeAt(i) + 13);
+    }
+    if (str.charCodeAt(i) + 13 > 122) {
+      result += String.fromCharCode(str.charCodeAt(i) - 13);
+    }
+    if (str.charCodeAt(i) < 65 || str.charCodeAt(i) > 122) {
+      result += String.fromCharCode(str.charCodeAt(i));
+    }
+  }
+  return result;
 }
 
 /**
@@ -268,11 +289,13 @@ function encodeToRot13(/* str */) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (typeof (value) === 'string') {
+  if (typeof value === 'string') {
     return true;
-  } if (value instanceof String) {
+  }
+  if (value instanceof String) {
     return true;
-  } return false;
+  }
+  return false;
 }
 
 /**
@@ -299,8 +322,63 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const card = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+
+  return card.indexOf(value);
 }
 
 module.exports = {
