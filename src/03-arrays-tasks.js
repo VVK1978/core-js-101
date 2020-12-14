@@ -480,8 +480,10 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const result = [];
+  arr.map((el) => (!result.includes(el) ? result.push(el) : 0));
+  return result;
 }
 
 /**
@@ -531,8 +533,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 /**
@@ -569,8 +571,26 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let result = [];
+  if (arr.length < 2) {
+    return arr;
+  }
+  if (arr.length % 2 === 0) {
+    result = arr.slice(-arr.length / 2).concat(arr.slice(0, arr.length / 2));
+  }
+  if (arr.length % 2 !== 0) {
+    const arrHead = arr.slice(-Math.floor(arr.length / 2));
+    const arrEnd = arr.slice(0, Math.floor(arr.length / 2));
+    const arrNew = arrHead.concat(arrEnd);
+    arrNew.splice(
+      Math.floor(arr.length / 2),
+      0,
+      arr[Math.floor(arr.length / 2)],
+    );
+    result = arrNew;
+  }
+  return result;
 }
 
 module.exports = {

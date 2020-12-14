@@ -198,40 +198,24 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  for (let h = 0; h < height; h += 1) {
+    if (h === 0) result += '┌';
+    else if (h === height - 1) result += '└';
+    else result += '│';
 
-  /*   const a = '┌';
-  const b = '─';
-  const c = '┐';
-  const d = '│';
-  const e = '└';
-  const f = '┘';
-  if (width === 2 && height === 2) {
-    return `${a}${c}`
-     + '\n'
-      + `${e}${f}`;
-  }
-  if (width > 2 && height === 2) {
-    return (
-      `${a}${b.padEnd(width - 2, b)}${c}`
-      + '\n'
-      + `${e}${b.padEnd(width - 2, b)}${f}`
-    );
-  }
-  if (width > 2 && height > 2) {
-    const str = [];
-    let strNew = '';
-    const strFirst = `${a}${b.padEnd(width - 2, b)}${c}`
-    + '\n';
-    for (let i = 1; i < height - 1; i += 1) {
-      str[i] = `${d}${' '.padEnd(width - 2)}${d}`
-       + '\n';
-      strNew += str[i];
+    for (let w = 0; w < width - 2; w += 1) {
+      if (h === 0 || h === height - 1) {
+        result += '─';
+      } else result += ' ';
     }
-    const strLast = `${e}${b.padEnd(width - 2, b)}${f}`;
-    return (strFirst + strNew + strLast);
-  } */
+
+    if (h === 0) result += '┐\n';
+    else if (h === height - 1) result += '┘\n';
+    else result += '│\n';
+  }
+  return result;
 }
 
 /**
