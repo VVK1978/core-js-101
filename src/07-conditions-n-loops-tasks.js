@@ -135,8 +135,26 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const top1 = rect1.top;
+  const left1 = rect1.left;
+  const width1 = rect1.width;
+  const height1 = rect1.height;
+  const top2 = rect2.top;
+  const left2 = rect2.left;
+  const width2 = rect2.width;
+  const height2 = rect2.height;
+
+  if (
+    (top1 + height1 < top2)
+    || (left1 + width1 < left2)
+    || (left2 + width2 < left1)
+    || (top2 + height2 < top1)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 
@@ -437,8 +455,18 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const newMatrix = new Array(m1.length);
+  for (let i = 0; i < m1.length; i += 1) {
+    newMatrix[i] = new Array(m2[0].length);
+    for (let j = 0; j < m2[0].length; j += 1) {
+      newMatrix[i][j] = 0;
+      for (let n = 0; n < m1[0].length; n += 1) {
+        newMatrix[i][j] += m1[i][n] * m2[n][j];
+      }
+    }
+  }
+  return newMatrix;
 }
 
 
