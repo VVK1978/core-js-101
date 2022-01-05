@@ -27,8 +27,17 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  }
+  if (num % 3 === 0) {
+    return 'Fizz';
+  }
+  if (num % 5 === 0) {
+    return 'Buzz';
+  }
+  return num;
 }
 
 
@@ -268,8 +277,25 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const cardNumbers = ccn.toString().split('').map(Number);
+  const cardNumbersChecked = [];
+  if (cardNumbers.length % 2 === 0) {
+    cardNumbers
+      .forEach((number, index) => (index % 2 === 0
+        ? cardNumbersChecked.push(number * 2)
+        : cardNumbersChecked.push(number)));
+  } else {
+    cardNumbers
+      .forEach((number, index) => (index % 2 === 1
+        ? cardNumbersChecked.push(number * 2)
+        : cardNumbersChecked.push(number)));
+  }
+  return cardNumbersChecked
+    .map((number) => (number > 9
+      ? number - 9
+      : number))
+    .reduce((acc, cur) => acc + cur, 0) % 10 === 0;
 }
 
 /**
@@ -368,8 +394,28 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const pathesArray = pathes.map((string) => string.split('/'));
+  let pathesMap = {};
+  let commonDirectoryPath = '';
+  pathesArray.forEach((pathArray) => {
+    pathesMap = pathArray.reduce((acc, cur) => {
+      if (acc[cur]) {
+        acc[cur] += 1;
+      } else {
+        acc[cur] = 1;
+      }
+      return acc;
+    }, pathesMap);
+  });
+  Object
+    .entries(pathesMap)
+    .forEach((value) => {
+      if (value[1] === pathesArray.length) {
+        commonDirectoryPath += `${value[0]}/`;
+      }
+    });
+  return commonDirectoryPath;
 }
 
 
